@@ -35,6 +35,16 @@ class MindboxClientV3 extends AbstractMindboxClient
     private $url;
 
     /**
+     * @var string Уникальный идентификатор устройства
+     */
+    private $customer_device_uuid;
+
+    /**
+     * @var string IP пользователя
+     */
+    private $customer_ip;
+
+    /**
      * @var string Уникальный идентификатор сайта/мобильного приложения/и т.п.
      */
     private $endpointId;
@@ -83,7 +93,18 @@ class MindboxClientV3 extends AbstractMindboxClient
      */
     private function getCustomerIP()
     {
-        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        if (is_null($this->customer_ip)) {
+            return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        }
+        return $this->customer_ip;
+    }
+
+    /**
+     * @param string $customer_ip
+     */
+    public function setCustomerIp(string $customer_ip)
+    {
+        $this->customer_ip = $customer_ip;
     }
 
     /**
@@ -123,13 +144,24 @@ class MindboxClientV3 extends AbstractMindboxClient
     }
 
     /**
-     * Получение уникального идентификатора устройства из куки mindboxDeviceUUID.
+     * Получение уникального идентификатора устройства.
      *
      * @return string
      */
     private function getDeviceUUID()
     {
-        return isset($_COOKIE['mindboxDeviceUUID']) ? $_COOKIE['mindboxDeviceUUID'] : '';
+        if (is_null($this->customer_device_uuid)) {
+            return isset($_COOKIE['mindboxDeviceUUID']) ? $_COOKIE['mindboxDeviceUUID'] : '';
+        }
+        return $this->customer_device_uuid;
+    }
+
+    /**
+     * @param string $customer_device_uuid
+     */
+    public function setCustomerDeviceUuid(string $customer_device_uuid)
+    {
+        $this->customer_device_uuid = $customer_device_uuid;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Mindbox;
 
 use Mindbox\Clients\AbstractMindboxClient;
 use Mindbox\Clients\MindboxClientFactory;
+use Mindbox\Clients\MindboxClientV3;
 use Mindbox\Exceptions\MindboxConfigException;
 use Mindbox\Exceptions\MindboxException;
 use Mindbox\Helpers\CustomerHelper;
@@ -33,7 +34,7 @@ class Mindbox
     ];
 
     /**
-     * @var AbstractMindboxClient Экземпляр клиента для отправки запросов к Mindbox v3 API.
+     * @var MindboxClientV3 Экземпляр клиента для отправки запросов к Mindbox v3 API.
      */
     private $client;
 
@@ -140,7 +141,7 @@ class Mindbox
     /**
      * Геттер для $client.
      *
-     * @return AbstractMindboxClient
+     * @return MindboxClientV3
      */
     public function getClientV3()
     {
